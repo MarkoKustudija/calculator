@@ -1,32 +1,46 @@
 const defaultResult = 0;
 let currentResult = defaultResult;
 
+function getUserNumberInput(){
+    return parseInt(userInput.value);
+}
+
+function createAndWriteOutput(operator, initialResult, calculatedNumber){
+    const description = `${initialResult} ${operator} ${calculatedNumber}`;
+    outputResult(currentResult, description);
+}
+
 function add() {
-  const enteredNumber = parseInt(userInput.value);
-  const description = `${currentResult} + ${enteredNumber}`;
+  const enteredNumber = getUserNumberInput();
+  const initialResult = currentResult;
   currentResult += enteredNumber;
-  outputResult(currentResult, description);
+  createAndWriteOutput('+', initialResult, enteredNumber);
 }
 
 function subtract() {
-  const enteredNumber = parseInt(userInput.value);
-  const description = `${currentResult} - ${enteredNumber}`;
+  const enteredNumber = getUserNumberInput();
+  const initialResult = currentResult;
   currentResult -= enteredNumber;
-  outputResult(currentResult, description);
+  createAndWriteOutput('-', initialResult, enteredNumber);
 }
 
 function multiply() {
-  const enteredNumber = parseInt(userInput.value);
-  const description = `${currentResult} * ${enteredNumber}`;
+  const enteredNumber = getUserNumberInput();
+  const initialResult = currentResult;
   currentResult *= enteredNumber;
-  outputResult(currentResult, description);
+  createAndWriteOutput('*', initialResult, enteredNumber);
+  
 }
 
 function divide() {
-  const enteredNumber = parseInt(userInput.value);
-  const description = `${currentResult} / ${enteredNumber}`;
+
+  const enteredNumber = getUserNumberInput();
+  if(enteredNumber === 0){
+    alert("Can't divide by zero, please enter new value!")
+  }
+  const initialResult = currentResult;
   currentResult /= enteredNumber;
-  outputResult(currentResult, description);
+  createAndWriteOutput('/', initialResult, enteredNumber);
 }
 
 addBtn.addEventListener("click", add);
