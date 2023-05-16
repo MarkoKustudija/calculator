@@ -15,31 +15,25 @@ function createAndWriteOutput(operator, initialResult, calculatedNumber) {
   outputResult(currentResult, description);
 }
 
-function calculateResult(calculationType) {
+function calculateResult(operation) {
   const enteredNumber = getUserNumberInput();
-  if (
-    (calculationType !== ADD &&
-      calculationType !== SUBTRACT &&
-      calculationType !== MULTIPLY &&
-      calculationType !== DIVIDE) ||
-    !enteredNumber
-  ) {
-    return;
-  }
-
   const initialResult = currentResult;
   let operator;
 
-  if (calculationType === ADD) {
+  if (operation === ADD) {
     currentResult += enteredNumber;
     operator = "+";
-  } else if (calculationType === SUBTRACT) {
+  } else if (operation === SUBTRACT) {
     currentResult -= enteredNumber;
     operator = "-";
-  } else if (calculationType === MULTIPLY) {
+  } else if (operation === MULTIPLY) {
     currentResult *= enteredNumber;
     operator = "*";
-  } else if (calculationType === DIVIDE) {
+  } else if (operation === DIVIDE) {
+    if(enteredNumber === 0){
+        alert("Can't divide by zero, please enter some other value!");
+        return;
+    }
     currentResult /= enteredNumber;
     operator = "/";
   }
@@ -47,21 +41,8 @@ function calculateResult(calculationType) {
   createAndWriteOutput(operator, initialResult, enteredNumber);
 }
 
-function add() {
-    calculateResult(ADD);
-}
-function subtract(){
-    calculateResult(SUBTRACT);
-}
-function multiply(){
-    calculateResult(MULTIPLY);
-}
 
-function divide(){
-    calculateResult(DIVIDE);
-}
-
-addBtn.addEventListener("click", add);
-subtractBtn.addEventListener("click", subtract);
-multiplyBtn.addEventListener("click", multiply);
-divideBtn.addEventListener("click", divide);
+addBtn.addEventListener("click", calculateResult.bind(this,ADD));
+subtractBtn.addEventListener("click", calculateResult.bind(this,SUBTRACT));
+multiplyBtn.addEventListener("click", calculateResult.bind(this,MULTIPLY));
+divideBtn.addEventListener("click", calculateResult.bind(this,DIVIDE));
